@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Regression suite" verbose="1">
+<listeners>
+<listener class-name="com.dista.listeners.RetryListener"/>
+<listener class-name="com.dista.listeners.TestListener"/>
+</listeners>
+<test name="TestLaunchApplication">
+<classes>
+<class name="com.dista.test.automation.TestLaunchApplication">
+<methods>
+<include name="Login"/>
+</methods>
+</class>
+</classes>
+</test>
+<test name="TestCreateStore">
+<classes>
+<class name="com.dista.test.automation.TestCreateStore">
+<methods>
+<exclude name="createStoreOne"/>
+<exclude name="createStoreTwo"/>
+</methods>
+</class>
+</classes>
+</test>
+<test name="TestCreateAsset">
+<classes>
+<class name="com.dista.test.automation.TestCreateAsset">
+<methods>
+<include name="createAssetOne"/>
+<exclude name="createAssetTwo"/>
+</methods>
+</class>
+</classes>
+</test>
+</suite>
