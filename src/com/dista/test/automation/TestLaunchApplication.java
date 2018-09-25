@@ -26,26 +26,20 @@ public class TestLaunchApplication {
 	public void launch(String browser, String URL, String username, String password)
 			throws IOException, InterruptedException {
 
+		System.out.println("DRIVER 4:: "+ driver);
+		
 		if (browser.equalsIgnoreCase("chrome")) 
 		{
 			System.setProperty("webdriver.chrome.driver", "Drivers/chromedriver");
 			ChromeOptions options = new ChromeOptions();
 			options.addArguments("--disable-extensions");
 			options.addArguments("--disable-popup-blocking");
-			// options.addArguments("--headless");
+			//options.addArguments("--headless");
 			options.addArguments("--start-maximized");
 			options.addArguments("chrome.switches", "--disable-extensions");
 			 driver = new ChromeDriver(options);
 		} 
-		else if (browser.equalsIgnoreCase("Firefox")) 
-		{
-			System.setProperty("webdriver.gecko.driver", "Drivers/geckodriver");
-			driver = new FirefoxDriver();
-		}
-        else if (browser.equalsIgnoreCase("Headless")) 
-        {
-			driver = new HtmlUnitDriver();
-		}
+
 
 		driver.manage().window().maximize();
 		driver.manage().timeouts().pageLoadTimeout(20, TimeUnit.SECONDS);
@@ -57,6 +51,8 @@ public class TestLaunchApplication {
 		driver.findElement(By.name("password")).sendKeys(password);
 		
 		driver.findElement(By.xpath("//button[@ng-click='doLogin()']")).click();
+		
+		System.out.println("DRIVER 3:: "+ driver);
 	
 
 	}
@@ -64,7 +60,7 @@ public class TestLaunchApplication {
 	
 
 	@BeforeSuite(alwaysRun = true)
-	public WebDriver Login() throws IOException, InterruptedException {
+	public void Login() throws IOException, InterruptedException {
 		System.out.println("Executing Login");
 		Add_Log = Logger.getLogger("rootLogger");				
 
@@ -77,9 +73,10 @@ public class TestLaunchApplication {
 		String URL = ExcelWSheet.getRow(3).getCell(1).getStringCellValue();
 		String username = ExcelWSheet.getRow(5).getCell(1).getStringCellValue();
 		String password = ExcelWSheet.getRow(6).getCell(1).getStringCellValue();
-		Add_Log.info("Data file loaded successfully.");		
+		Add_Log.info("Data file loaded successfully.");
+		System.out.println("browsers " + browser + URL + username + password);
 		launch(browser, URL, username, password);
-		return driver;
+		//return driver;
 	}
 
 

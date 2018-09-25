@@ -51,18 +51,24 @@ public class TestListener extends TestLaunchApplication implements ITestListener
     @Override
     public void onTestFailure(ITestResult iTestResult) {
         System.out.println(getTestMethodName(iTestResult) + " failed");
- 
+        
+        try {
         //Get driver from BaseTest and assign to local webdriver variable.
         Object testClass = iTestResult.getInstance();
         WebDriver webDriver = ((TestLaunchApplication) testClass).getDriver();
  
+        System.out.println(webDriver);
         //Take base64Screenshot screenshot.
-        String base64Screenshot = "data:image/png;base64,"+((TakesScreenshot)webDriver).
+        String base64Screenshot = "data:image/png;base64,"+((TakesScreenshot) webDriver).
                 getScreenshotAs(OutputType.BASE64);
  
         //Extentreports log and screenshot operations for failed tests.
         ExtentTestManager.getTest().log(LogStatus.FAIL,"Test Failed",
                 ExtentTestManager.getTest().addBase64ScreenShot(base64Screenshot));
+        } catch(Exception e) {
+        	System.out.println("Error rrr");
+        	e.printStackTrace();
+        }
     }
  
     @Override
